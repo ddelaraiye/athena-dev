@@ -16,7 +16,10 @@
                     <p id="status">Initialising...</p>
                 </div>
             </div>
-            <button id="new-chat" class="secondary">New conversation</button>
+            <div class="header-controls">
+                <button id="new-chat" class="secondary">New conversation</button>
+                <button id="stop-speaking" class="secondary" disabled>Stop Speaking</button>
+            </div>
         </header>
 
         <section id="messages" class="messages">
@@ -26,17 +29,53 @@
             </div>
         </section>
 
+        <!-- Voice interaction panel -->
+        <section id="voice-panel" class="voice-panel">
+            <div class="voice-controls">
+                <button id="mic-button" class="mic-btn" title="Push to talk">
+                    <span class="mic-icon">ï¿½</span>
+                    <span class="mic-label">Hold to speak</span>
+                </button>
+                <div id="recording-indicator" class="recording-indicator hidden">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="label">Listening...</span>
+                </div>
+            </div>
+
+            <div id="transcript-box" class="transcript-box hidden">
+                <div class="transcript-header">
+                    <span class="transcript-title">Your transcript</span>
+                    <button id="clear-transcript" class="icon-btn" title="Clear">ï¿½</button>
+                </div>
+                <textarea
+                    id="transcript"
+                    class="transcript-text"
+                    placeholder="Your spoken words will appear here..."
+                    rows="3"
+                ></textarea>
+                <div class="transcript-actions">
+                    <button id="cancel-transcript" class="secondary">Cancel</button>
+                    <button id="send-transcript" class="primary">Send to Athena</button>
+                </div>
+            </div>
+
+            <div id="voice-error" class="voice-error hidden"></div>
+        </section>
+
         <form id="chat-form" class="composer">
             <textarea
                 id="message"
                 placeholder="Talk to Athena..."
                 rows="1"
-                required
             ></textarea>
-            <button id="send" type="submit">Send</button>
+            <div class="composer-controls">
+                <button id="send" type="submit">Send</button>
+            </div>
         </form>
 
-        <footer>LOCAL SESSION · ATHENA 0.1</footer>
+        <footer>LOCAL SESSION â€” ATHENA 0.1</footer>
     </main>
 
     <script src="/app.js"></script>

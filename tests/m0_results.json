@@ -1,0 +1,243 @@
+{
+  "timestamp": "2026-11-19 00:08:07",
+  "model": "athena-llama:3b",
+  "num_predict": 1000,
+  "results": [
+    {
+      "name": "1_short_greeting",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 19,
+          "reply_len": 946,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 202,
+          "eval_duration_ms": 20218336000,
+          "total_duration_ms": 22627234200,
+          "load_duration_ms": 16465300,
+          "prompt_eval_count": 169,
+          "elapsed_s": 23.539,
+          "truncation_flags": [],
+          "reply_preview": "Hello! I'm Athena, a friendly AI companion. I'm here to help you learn, explore, and solve problems. I'm a large languag"
+        }
+      ]
+    },
+    {
+      "name": "2_factual_explanation",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 51,
+          "reply_len": 1312,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 245,
+          "eval_duration_ms": 23790640000,
+          "total_duration_ms": 24436106900,
+          "load_duration_ms": 29026500,
+          "prompt_eval_count": 173,
+          "elapsed_s": 25.394,
+          "truncation_flags": [],
+          "reply_preview": "A refrigerator is a complex device that utilizes a combination of physics and engineering principles to maintain a cool "
+        }
+      ]
+    },
+    {
+      "name": "3_reasoning_puzzle",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 93,
+          "reply_len": 716,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 172,
+          "eval_duration_ms": 16213014000,
+          "total_duration_ms": 16574473700,
+          "load_duration_ms": 16069300,
+          "prompt_eval_count": 188,
+          "elapsed_s": 17.457,
+          "truncation_flags": [],
+          "reply_preview": "Let's break this down step by step.  We know that the farmer originally had 17 sheep. Then, all but 9 of them die. This "
+        }
+      ]
+    },
+    {
+      "name": "4_creative_story",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 108,
+          "reply_len": 1330,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 278,
+          "eval_duration_ms": 26100619000,
+          "total_duration_ms": 26963641600,
+          "load_duration_ms": 15991600,
+          "prompt_eval_count": 186,
+          "elapsed_s": 27.966,
+          "truncation_flags": [],
+          "reply_preview": "In the sterile corridors of the New Eden research facility, a lone robot named Aria whirred to life. Her processors humm"
+        }
+      ]
+    },
+    {
+      "name": "5_technical_summary",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 112,
+          "reply_len": 1258,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 244,
+          "eval_duration_ms": 22211284000,
+          "total_duration_ms": 22865579000,
+          "load_duration_ms": 14089600,
+          "prompt_eval_count": 187,
+          "elapsed_s": 23.767,
+          "truncation_flags": [],
+          "reply_preview": "CPU cache locality refers to the tendency of a program to access data or instructions that are stored in a contiguous bl"
+        }
+      ]
+    },
+    {
+      "name": "6_multi_turn_a",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 29,
+          "reply_len": 30,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 8,
+          "eval_duration_ms": 795944000,
+          "total_duration_ms": 1268869600,
+          "load_duration_ms": 30092400,
+          "prompt_eval_count": 170,
+          "elapsed_s": 2.18,
+          "truncation_flags": [],
+          "reply_preview": "The capital of Japan is Tokyo."
+        },
+        {
+          "turn": 2,
+          "message_len": 27,
+          "reply_len": 319,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 61,
+          "eval_duration_ms": 5320849000,
+          "total_duration_ms": 5831931500,
+          "load_duration_ms": 14262500,
+          "prompt_eval_count": 193,
+          "elapsed_s": 6.746,
+          "truncation_flags": [],
+          "reply_preview": "As of my knowledge cutoff, the population of Tokyo is around 38 million people in the metropolitan area. However, please"
+        }
+      ]
+    },
+    {
+      "name": "7_multi_turn_b",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 46,
+          "reply_len": 2811,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 558,
+          "eval_duration_ms": 55664636000,
+          "total_duration_ms": 56208858700,
+          "load_duration_ms": 15063300,
+          "prompt_eval_count": 171,
+          "elapsed_s": 57.126,
+          "truncation_flags": [],
+          "reply_preview": "Python! It's a fantastic language, widely used in various domains, from web development to data analysis, machine learni"
+        },
+        {
+          "turn": 2,
+          "message_len": 57,
+          "reply_len": 1538,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 419,
+          "eval_duration_ms": 47177444000,
+          "total_duration_ms": 48194878700,
+          "load_duration_ms": 17499400,
+          "prompt_eval_count": 750,
+          "elapsed_s": 49.143,
+          "truncation_flags": [],
+          "reply_preview": "List comprehensions are a powerful feature in Python that allow you to create new lists in a concise and readable way.  "
+        }
+      ]
+    },
+    {
+      "name": "8_long_prompt",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 1916,
+          "reply_len": 705,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 163,
+          "eval_duration_ms": 16721234000,
+          "total_duration_ms": 17081511300,
+          "load_duration_ms": 29902600,
+          "prompt_eval_count": 586,
+          "elapsed_s": 18.054,
+          "truncation_flags": [],
+          "reply_preview": "A clever question! The answer is, of course, the quick brown fox. But, I must say, the passage is a well-known example o"
+        }
+      ]
+    },
+    {
+      "name": "9_open_ended",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 107,
+          "reply_len": 2902,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 548,
+          "eval_duration_ms": 53368249000,
+          "total_duration_ms": 54150859500,
+          "load_duration_ms": 16534600,
+          "prompt_eval_count": 182,
+          "elapsed_s": 55.12,
+          "truncation_flags": [],
+          "reply_preview": "When it comes to choosing between a relational database and a document store for a personal project, there are several t"
+        }
+      ]
+    },
+    {
+      "name": "10_emotive_support",
+      "turns": [
+        {
+          "turn": 1,
+          "message_len": 99,
+          "reply_len": 2032,
+          "done": true,
+          "done_reason": "stop",
+          "eval_count": 428,
+          "eval_duration_ms": 37607513000,
+          "total_duration_ms": 38476635700,
+          "load_duration_ms": 18342100,
+          "prompt_eval_count": 182,
+          "elapsed_s": 39.472,
+          "truncation_flags": [],
+          "reply_preview": "I'm so glad you reached out! Feeling overwhelmed is a common experience, and I'm here to help. Managing stress is all ab"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_turns": 12,
+    "total_truncation_flags": 0,
+    "done_reason_length": 0,
+    "done_reason_stop": 12
+  }
+}

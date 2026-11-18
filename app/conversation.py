@@ -1,3 +1,4 @@
+import logging
 import sqlite3
 import uuid
 from datetime import datetime, timezone
@@ -10,6 +11,8 @@ from app.config import (
     OLLAMA_MODEL,
     OLLAMA_NUM_CTX,
 )
+
+logger = logging.getLogger("athena.conversation")
 
 SYSTEM_PROMPT = """
 You are Athena, a knowledgeable and thoughtful AI companion.
@@ -121,10 +124,36 @@ async def generate_response(conversation_id, user_message):
 
     assistant_message = result["message"]["content"]
 
+    # Capture Ollama response metadata for diagnostics.
+    # Fields: done, done_reason, total_duration, load_duration,
+    # prompt_eval_count, eval_count, eval_duration.
+    ollama_metadata = {
+        "done": result.get("done"),
+        "done_reason": result.get("done_reason"),
+        "total_duration": result.get("total_duration"),
+        "load_duration": result.get("load_duration"),
+        "prompt_eval_count": result.get("prompt_eval_count"),
+        "eval_count": result.get("eval_count"),
+        "eval_duration": result.get("eval_duration"),
+    }
+
+    logger.info(
+        "Ollama response model=%s done=%s done_reason=%s "
+        "eval_count=%s eval_duration_ms=%s "
+        "prompt_eval_count=%s total_duration_ms=%s",
+        OLLAMA_MODEL,
+        ollama_metadata["done"],
+        ollama_metadata["done_reason"],
+        ollama_metadata["eval_count"],
+        ollama_metadata["eval_duration"],
+        ollama_metadata["prompt_eval_count"],
+        ollama_metadata["total_duration"],
+    )
+
     save_message(conversation_id, "user", user_message)
     save_message(conversation_id, "assistant", assistant_message)
 
-    return assistant_message
+    return assistant_message, ollama_metadata
 
 
 def create_conversation_id():

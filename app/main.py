@@ -1,8 +1,9 @@
 
+import logging
 from contextlib import asynccontextmanager
 
 import httpx
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -17,6 +18,9 @@ from app.conversation import (
     generate_response,
     initialise_database,
 )
+from app.speech import handle_transcribe
+
+logger = logging.getLogger("athena.main")
 
 
 @asynccontextmanager
@@ -68,7 +72,7 @@ async def chat(request: ChatRequest):
     )
 
     try:
-        reply = await generate_response(
+        reply, ollama_metadata = await generate_response(
             conversation_id,
             request.message.strip(),
         )
@@ -76,6 +80,7 @@ async def chat(request: ChatRequest):
         return {
             "conversation_id": conversation_id,
             "reply": reply,
+            "ollama_metadata": ollama_metadata,
         }
 
     except httpx.HTTPError as error:
@@ -89,6 +94,12 @@ async def chat(request: ChatRequest):
             status_code=502,
             detail="The model returned an unexpected response.",
         ) from error
+
+
+@app.post("/api/transcribe")
+async def transcribe(upload: UploadFile):
+    """Transcribe uploaded audio using local whisper.cpp."""
+    return await handle_transcribe(upload)
 
 
 app.mount(

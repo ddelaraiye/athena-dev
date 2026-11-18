@@ -134,3 +134,197 @@ footer {
     text-align: center;
     padding: 12px;
 }
+
+/* ── Voice interaction panel ────────────────────────────── */
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.voice-panel {
+    padding: 16px 0;
+    border-top: 1px solid #202a3a;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.voice-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mic-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #182436;
+    color: #e9eef8;
+    border: 2px solid #2388c8;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.mic-btn:disabled {
+    background: #0f1a26;
+    border-color: #3d4a5c;
+    color: #5a6b7c;
+    cursor: not-allowed;
+}
+
+.mic-btn.recording {
+    background: #7f1d1d;
+    border-color: #b91c1c;
+    color: #fee2e2;
+    animation: pulse 1.5s infinite;
+}
+
+.mic-icon {
+    font-size: 16px;
+}
+
+.recording-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #b91c1c;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.recording-indicator.hidden {
+    display: none;
+}
+
+.recording-indicator .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #b91c1c;
+    animation: blink 1.2s infinite;
+}
+
+.recording-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.recording-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.transcript-box {
+    border: 1px solid #29384c;
+    border-radius: 12px;
+    background: #0f1a26;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.transcript-box.hidden {
+    display: none;
+}
+
+.transcript-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transcript-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #8291a8;
+}
+
+.icon-btn {
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: #8291a8;
+    cursor: pointer;
+}
+
+.icon-btn:hover {
+    color: #e9eef8;
+    background: #182436;
+}
+
+.transcript-text {
+    flex: 1;
+    resize: vertical;
+    min-height: 60px;
+    padding: 12px;
+    border-radius: 9px;
+    border: 1px solid #29384c;
+    background: #0a121e;
+    color: #e9eef8;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.transcript-text:focus {
+    outline: 1px solid #2388c8;
+}
+
+.transcript-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.voice-error {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #7f1d1d;
+    color: #fee2e2;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.voice-error.hidden {
+    display: none;
+}
+
+/* ── Speaking state on orb ──────────────────────────────── */
+
+.orb.speaking {
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 30px #b91c1c88;
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* ── Primary button variant ─────────────────────────────── */
+
+.primary {
+    background: #2388c8;
+}
+
+.primary:hover {
+    background: #3b9ede;
+}
+
+.composer-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
