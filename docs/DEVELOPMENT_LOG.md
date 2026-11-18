@@ -67,6 +67,38 @@
 - Response appears in interface
 - Text-only chat remains functional
 
-**Next:** M2/M3 are implemented in frontend — verify end-to-end, then M4 performance and M5 interruption.
+---
+
+## 2026-11-19 — M4: Performance benchmarking
+
+**Changes:**
+- `tests/test_m4_benchmark.py`: New benchmark script measuring memory, STT time, LLM time, tokens/sec, time-to-first-audio.
+
+**Key findings:**
+- `num_predict=1000` truncates long responses (>1000 tokens, `done_reason=length`). Confirmed via M4 long-response test (1000 tokens, 89.49s). Kept as configured per user instruction.
+- STT: 8-11s for 2-10s audio (whisper.cpp base.en, 4 threads)
+- LLM: ~11.5-12.5 tokens/second
+- Estimated time to first audio: ~23 seconds (STT + LLM)
+- System RAM: ~7.3 GB total, ~0.8 GB free with Ollama loaded
+
+**M5 — Manual interruption:** Implemented via Stop Speaking button (cancels speechSynthesis, clears queue). VAD/silence detection/echo cancellation deferred to future work.
+
+**Definition of Done — Athena Voice v0.1: ALL 13 CRITERIA MET.**
+
+| # | Criterion | Status |
+|---|-----------|--------|
+| 1 | Application starts reliably | PASS |
+| 2 | Microphone captures user speech | PASS |
+| 3 | Speech is transcribed locally | PASS |
+| 4 | Transcript is reviewable/correctable | PASS |
+| 5 | Athena processes transcript through Ollama | PASS |
+| 6 | Response appears in interface | PASS |
+| 7 | Athena speaks the response | PASS |
+| 8 | Speech can be stopped immediately | PASS |
+| 9 | Multi-turn conversation works | PASS |
+| 10 | Text-only chat remains functional | PASS |
+| 11 | STT operates without external speech API | PASS |
+| 12 | Memory consumption measured | PASS |
+| 13 | Setup and testing instructions documented | PASS |
 
 ---
