@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athena</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="app">
+        <header class="header">
+            <div class="identity">
+                <div class="orb"></div>
+                <div>
+                    <h1>ATHENA</h1>
+                    <p id="status">Initialising...</p>
+                </div>
+            </div>
+            <button id="new-chat" class="secondary">New conversation</button>
+        </header>
+
+        <section id="messages" class="messages">
+            <div class="welcome">
+                <h2>Good to see you.</h2>
+                <p>What would you like to explore?</p>
+            </div>
+        </section>
+
+        <form id="chat-form" class="composer">
+            <textarea
+                id="message"
+                placeholder="Talk to Athena..."
+                rows="1"
+                required
+            ></textarea>
+            <button id="send" type="submit">Send</button>
+        </form>
+
+        <footer>LOCAL SESSION · ATHENA 0.1</footer>
+    </main>
+
+    <script src="/app.js"></script>
+</body>
+</html>
