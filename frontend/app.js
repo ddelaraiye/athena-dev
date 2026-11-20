@@ -103,6 +103,21 @@ function addMessage(role, content) {
   element.className = `message ${role}`;
   element.textContent = content;
 
+  // Add Replay button for assistant messages so users can re-hear any
+  // previous spoken response without generating a new Ollama request.
+  if (role === "assistant") {
+    const replayBtn = document.createElement("button");
+    replayBtn.type = "button";
+    replayBtn.className = "replay-btn";
+    replayBtn.title = "Replay this response";
+    replayBtn.textContent = "Replay";
+    replayBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      replayMessage(content);
+    });
+    element.appendChild(replayBtn);
+  }
+
   messages.appendChild(element);
   messages.scrollTop = messages.scrollHeight;
 }
@@ -236,6 +251,14 @@ function cancelSpeech() {
   setState(STATE_IDLE);
 }
 
+// Replay a previously spoken assistant response using browser speechSynthesis.
+// No Ollama request is made and no new conversation messages are created.
+function replayMessage(text) {
+  if (!text || !synth) return;
+  cancelSpeech();
+  speak(text);
+}
+
 stopSpeakingButton.addEventListener("click", () => {
   cancelSpeech();
   addMessage("assistant", "(speech stopped)");
@@ -272,6 +295,8 @@ function startRecording(stream) {
 
   const options = mimeType ? { mimeType } : {};
   mediaRecorder = new MediaRecorder(stream, options);
+  // Keep a reference to the stream so tracks can be stopped on cleanup
+  mediaRecorder._stream = stream;
   audioChunks = [];
 
   mediaRecorder.ondataavailable = (event) => {
@@ -280,22 +305,35 @@ function startRecording(stream) {
 
   mediaRecorder.onstop = async () => {
     // Stop all tracks to release the microphone
-    stream.getTracks().forEach((track) => track.stop());
+    try {
+      mediaRecorder._stream.getTracks().forEach((track) => track.stop());
+    } catch {
+      // Stream may already be released
+    }
+    mediaRecorder._stream = null;
 
     if (audioChunks.length === 0) {
       showError("No audio was recorded. Please try again.");
       setState(STATE_IDLE);
+      mediaRecorder = null;
       return;
     }
 
     const blob = new Blob(audioChunks, { type: mimeType || "audio/webm" });
     await handleRecordedAudio(blob);
+    mediaRecorder = null;
   };
 
   mediaRecorder.onerror = (error) => {
     console.error("MediaRecorder error:", error);
     showError("Recording failed. Please try again.");
     setState(STATE_IDLE);
+    try {
+      mediaRecorder._stream?.getTracks().forEach((track) => track.stop());
+    } catch {
+      // Ignore cleanup errors
+    }
+    mediaRecorder = null;
   };
 
   mediaRecorder.start(200); // collect data in 200ms chunks
@@ -308,6 +346,8 @@ async function stopRecording() {
     mediaRecorder.stop();
     isRecording = false;
   }
+  // Note: microphone tracks are released in mediaRecorder.onstop.
+  // mediaRecorder is set to null there after processing completes.
 }
 
 micButton.addEventListener("mousedown", async (event) => {
@@ -394,11 +434,12 @@ sendTranscriptButton.addEventListener("click", async () => {
     await speak(result.reply);
 
   } catch (error) {
+    // On chat failure, preserve the transcript so the user can retry.
+    // Only add an assistant error message; do not clear the input.
     addMessage("assistant", `I encountered an error: ${error.message}`);
     setState(STATE_IDLE);
   } finally {
     sendTranscriptButton.disabled = false;
-    transcriptTextarea.value = "";
     transcriptBox.classList.add("hidden");
     input.focus();
   }
@@ -420,6 +461,8 @@ clearTranscriptButton.addEventListener("click", () => {
 newChatButton.addEventListener("click", () => {
   cancelSpeech();
   conversationId = null;
+  transcriptTextarea.value = "";
+  transcriptBox.classList.add("hidden");
   messages.innerHTML = `
     <div class="welcome">
       <h2>Good to see you.</h2>
@@ -427,6 +470,21 @@ newChatButton.addEventListener("click", () => {
     </div>
   `;
   setState(STATE_IDLE);
+});
+
+// ── Page unload cleanup ──────────────────────────────────────
+
+window.addEventListener("beforeunload", () => {
+  cancelSpeech();
+  if (mediaRecorder) {
+    try {
+      mediaRecorder._stream?.getTracks().forEach((track) => track.stop());
+    } catch {
+      // Ignore cleanup errors
+    }
+    mediaRecorder = null;
+  }
+  audioChunks = [];
 });
 
 // ── Voice synthesis readiness ──────────────────────────────

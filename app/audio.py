@@ -147,10 +147,10 @@ def convert_to_wav_16k_mono(
         logger.error(
             "ffmpeg conversion failed (rc=%d): %s",
             result.returncode,
-            result.stderr.strip()[:500],
+            result.stderr.strip()[:500] if result.stderr else "",
         )
         raise AudioError(
-            f"Audio conversion failed: {result.stderr.strip()[:200]}"
+            f"Audio conversion failed: {result.stderr.strip()[:200] if result.stderr else ''}"
         )
 
     return output_path

@@ -69,6 +69,30 @@
 
 ---
 
+## Replay Previous Spoken Responses (v0.1 stabilization)
+
+**Status:** Implemented in frontend/app.js, frontend/style.css
+
+**Implemented features:**
+- Each assistant message displays a "Replay" button
+- Clicking Replay re-speaks that exact response using browser speechSynthesis
+- No Ollama request is made, no new conversation messages are created
+- Clicking Replay while another response is speaking stops the current speech first
+- Existing Stop Speaking control continues to work during replay
+- Replay works for multiple assistant messages in the same conversation
+- Empty or unavailable speech content is handled gracefully (silent no-op)
+
+**Acceptance tests (require manual browser verification):**
+- Replay the latest assistant response — not yet browser-tested
+- Replay an older assistant response — not yet browser-tested
+- Replay the same response multiple times — not yet browser-tested
+- Replay while another response is being spoken — not yet browser-tested
+- Stop a replay midway via Stop Speaking — not yet browser-tested
+- Verify replay creates no duplicate messages — not yet browser-tested
+- Verify replay makes no additional Ollama requests — not yet browser-tested
+
+---
+
 ## M4 — Performance Benchmarking
 
 **Date:** 19 November 2026  

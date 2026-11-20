@@ -69,7 +69,10 @@ async def handle_transcribe(upload: UploadFile) -> dict:
     tmp_path = Path(tmp_name)
 
     try:
-        os.write(fd, file_bytes)
+        # Ensure all bytes are written (os.write may write fewer bytes on some platforms)
+        bytes_written = os.write(fd, file_bytes)
+        while bytes_written < len(file_bytes):
+            bytes_written += os.write(fd, file_bytes[bytes_written:])
     finally:
         os.close(fd)
 

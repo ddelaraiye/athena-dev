@@ -83,6 +83,25 @@
 
 **M5 — Manual interruption:** Implemented via Stop Speaking button (cancels speechSynthesis, clears queue). VAD/silence detection/echo cancellation deferred to future work.
 
+---
+
+## 2026-11-20 — Replay Previous Spoken Responses
+
+**Changes:**
+- `frontend/app.js`: `addMessage()` now adds a "Replay" button to each assistant message. New `replayMessage(text)` function calls `cancelSpeech()` then `speak(text)` to replay the selected response. Reuses existing speech synthesis logic — no Ollama request, no new conversation messages, no duplicate history.
+- `frontend/style.css`: Added `.replay-btn` styling — small blue-accented button matching Athena's visual identity.
+
+**Acceptance criteria:**
+- Replay any assistant response (latest or older) ✓ (each message has its own button with its own stored text)
+- Replay the same response multiple times ✓ (button remains after speaking)
+- Replay while speaking stops current speech first ✓ (`cancelSpeech()` called before `speak()`)
+- Stop Speaking control continues to work during replay ✓
+- No duplicate messages, no additional Ollama requests ✓ (frontend-only)
+
+**Status:** Implemented, not yet browser-tested with real human speech.
+
+---
+
 **Definition of Done — Athena Voice v0.1: ALL 13 CRITERIA MET.**
 
 | # | Criterion | Status |

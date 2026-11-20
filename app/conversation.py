@@ -114,6 +114,10 @@ async def generate_response(conversation_id, user_message):
         },
     }
 
+    # Persist the user message BEFORE model inference so conversation
+    # history is not lost if the Ollama call fails.
+    save_message(conversation_id, "user", user_message)
+
     async with httpx.AsyncClient(timeout=180.0) as client:
         response = await client.post(
             f"{OLLAMA_BASE_URL}/api/chat",
@@ -150,7 +154,7 @@ async def generate_response(conversation_id, user_message):
         ollama_metadata["total_duration"],
     )
 
-    save_message(conversation_id, "user", user_message)
+    # Persist the assistant response only after successful generation.
     save_message(conversation_id, "assistant", assistant_message)
 
     return assistant_message, ollama_metadata

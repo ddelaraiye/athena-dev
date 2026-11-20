@@ -294,6 +294,31 @@ footer {
     display: none;
 }
 
+/* ── Replay button for assistant responses ──────────────────── */
+
+.replay-btn {
+    background: transparent;
+    border: 1px solid #2388c8;
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: #2388c8;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.replay-btn:hover {
+    background: #2388c8;
+    color: white;
+}
+
+.replay-btn:focus {
+    outline: 1px solid #2388c8;
+    outline-offset: 2px;
+}
+
 /* ── Speaking state on orb ──────────────────────────────── */
 
 .orb.speaking {
